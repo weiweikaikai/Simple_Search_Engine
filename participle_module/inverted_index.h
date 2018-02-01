@@ -34,7 +34,10 @@ class InvertedIndex
             while(it != result_index_.end()) {
                 foutput<<it->first.c_str()<<"->";
                 map<string,int>::iterator it1= (it->second).begin(); 
-                foutput<<"["<<it1->first.c_str()<<":"<<it1->second<<"]"<<endl;
+                while(it1 != (it->second).end()) {
+                    foutput<<"["<<it1->first.c_str()<<":"<<it1->second<<"]"<<endl;
+                    ++it1; 
+                }
                 ++it;
             }
             foutput.close();
