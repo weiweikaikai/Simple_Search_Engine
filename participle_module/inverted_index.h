@@ -9,15 +9,18 @@
 #define _INVERTED_INDEX_H
 #include <iostream>
 #include <fstream>
+#include <string.h>
 #include <map>
+#include "hash_chain.h"
 using namespace std;
 
 #define MAXLINE 1024  
-  
+ 
+
 class InvertedIndex  
 {  
     public:  
-        InvertedIndex() {}  
+        InvertedIndex():hash() {}  
         ~InvertedIndex() {
             result_index_.clear();
         }  
@@ -29,7 +32,7 @@ class InvertedIndex
         void print() {
             map<string,map<string,int> >::iterator it = result_index_.begin();
             std::ofstream foutput;                                              
-            const char*output_path="./invertedindex.txt";     
+            const char*output_path="./invertedindex.txt"; //将建立的倒排索引打印到这个文件    
                 foutput.open(output_path);                                      
             while(it != result_index_.end()) {
                 foutput<<it->first.c_str()<<"->";
@@ -41,12 +44,13 @@ class InvertedIndex
                 ++it;
             }
             foutput.close();
+            hash.Print();
         }
 
     private:  
         //存放倒排索引结果，key是单词，value也是map，该map的key是文件名，value是该单词在该文件中出现的次数  
         map<string,map<string,int> > result_index_;  
-
+        hash_t hash; //单词词典
         int ParseWordsByLine(char* str_line, const char* file_name);  
         void InsertWordToMap(char* word, const char* file_name);  
 };  
