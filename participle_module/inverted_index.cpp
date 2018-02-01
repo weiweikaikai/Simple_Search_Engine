@@ -97,7 +97,8 @@ void InvertedIndex::InsertWordToMap(char* word, const char* file_name) {
         map<string,int> file_word_count = result_index_[word_str];  
         file_word_count[file_name_str] ++ ;  
         result_index_[word_str] = file_word_count;  
-    }  
+    } 
+   hash.hash_add_entry(word); 
 }  
 
 
@@ -106,7 +107,8 @@ int main()
 {
     InvertedIndex invertedindex;
     invertedindex.readFileList("../thual_data"); //将thual_data目录中分词后的词语建立倒排索引
-    invertedindex.print();
+    invertedindex.print(); //将建立的倒排索引存储到文件中
+
     return 0;
 }
 
